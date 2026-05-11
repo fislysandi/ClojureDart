@@ -5002,11 +5002,12 @@
               *loading-nses* (assoc *loading-nses* ns-name (count *loading-nses*))]
       (let [file-paths (ns-to-paths ns-name)
             cljd-core (when-not (= ns-name 'cljd-core) (get @nses 'cljd.core))]
-        (if-some [[file-path url] (some (fn [p] (some->> (find-resource p) (vector p))) file-paths)]
-          (compile-url file-path url)
-          (throw (ex-info (str "Could not locate "
-                            (str/join " or " file-paths))
-                   {:ns ns-name})))))))
+        (let [found (some (fn [p] (let [r (find-resource p)] (println "DEBUG find-resource:" p "->" r) (some->> r (vector p)))) file-paths)]
+          (if-some [[file-path url] found]
+            (compile-url file-path url)
+            (throw (ex-info (str "Could not locate "
+                              (str/join " or " file-paths))
+                     {:ns ns-name}))))))))
 
 (defn dump-modified-files [nses-before]
   (doseq [[ns {:keys [lib] :as ns-map}] @nses
