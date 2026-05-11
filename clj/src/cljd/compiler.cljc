@@ -5002,7 +5002,7 @@
               *loading-nses* (assoc *loading-nses* ns-name (count *loading-nses*))]
       (let [file-paths (ns-to-paths ns-name)
             cljd-core (when-not (= ns-name 'cljd-core) (get @nses 'cljd.core))]
-          (if-some [[file-path url] found]
+          (if-some [[file-path url] (some (fn [p] (some->> (find-resource p) (vector p))) file-paths)]
             (compile-url file-path url)
             (throw (ex-info (str "Could not locate "
                               (str/join " or " file-paths))
