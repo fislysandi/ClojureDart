@@ -1627,3 +1627,35 @@
      (try
        (.toImageSync picture# (int ~w) (int ~h))
        (finally (.dispose picture#)))))
+
+
+;; Widget factory functions for convenient (f/container ...) syntax
+(defn container [& args]
+  (widget ~(apply list 'widgets/Container args)))
+
+(defn text [s & {:keys [style]}]
+  (if style
+    (widget ~(list 'widgets/Text s :style style))
+    (widget ~(list 'widgets/Text s))))
+
+(defn row [& {:keys [main-axis-alignment cross-axis-alignment children gap]}]
+  (widget ~(list 'widgets/Row :main-axis-alignment (or main-axis-alignment 'widgets/MainAxisAlignment.start) :cross-axis-alignment (or cross-axis-alignment 'widgets/CrossAxisAlignment.center) :children (or children []))))
+
+(defn column [& {:keys [main-axis-alignment cross-axis-alignment children gap]}]
+  (widget ~(list 'widgets/Column :main-axis-alignment (or main-axis-alignment 'widgets/MainAxisAlignment.start) :cross-axis-alignment (or cross-axis-alignment 'widgets/CrossAxisAlignment.start) :children (or children []))))
+
+(defn sized-box [{:keys [height width]}]
+  (widget ~(list 'widgets/SizedBox :height (or height 0) :width (or width 0))))
+
+(defn container-with-child [child & {:keys [color padding margin decoration]}]
+  (widget ~(list 'widgets/Container :child child :color color :padding padding :margin margin :decoration decoration)))
+
+(defn list-view [& {:keys [children]}]
+  (widget ~(list 'widgets/ListView :children (or children []))))
+
+(defn text-button [{:keys [on-pressed child]}]
+  (widget ~(list 'widgets/TextButton :on-pressed on-pressed :child child)))
+
+(defn icon-data [name]
+  (symbol (str "widgets/Icons." name)))
+
