@@ -1631,39 +1631,11 @@
 
 
 
-;; Widget factory functions - convenience wrappers around Dart widget constructors
+
+
+;; Widget factory functions
 (defn material-app [{:keys [title theme home]}]
-  (widget (widgets/MaterialApp .title (or title "") .theme (or theme nil) .home (or home nil))))
+  (widget (material/MaterialApp .title (or title "") .theme (or theme nil) .home (or home nil))))
 
 (defn theme-data [{:keys [brightness color-seed scaffold-background-color]}]
-  (widgets/ThemeData .brightness (or brightness widgets/Brightness.light) .colorSeed (or color-seed nil) .scaffoldBackgroundColor (or scaffold-background-color nil)))
-
-(defn edge-insets [all]
-  (widgets/EdgeInsets.all all))
-
-(defn edge-insets-symmetric [{:keys [horizontal vertical]}]
-  (widgets/EdgeInsets.symmetric :horizontal (or horizontal 0) :vertical (or vertical 0)))
-
-(defn edge-insets-only [{:keys [top bottom left right]}]
-  (widgets/EdgeInsets.only :top (or top 0) :bottom (or bottom 0) :left (or left 0) :right (or right 0)))
-
-(defn edge-insets-geometry [x y]
-  (widgets/EdgeInsetsGeometry.lerp (widgets/EdgeInsets.all x) (widgets/EdgeInsets.all y) 0.5))
-
-(defn box-decoration [{:keys [color border-radius]}]
-  (widgets/BoxDecoration :color color :borderRadius border-radius))
-
-(defn border-radius-circular [r]
-  (widgets/BorderRadius.circular r))
-
-(defn color-hex [hex]
-  (widgets/Color.hex hex))
-
-(defn refresh-indicator [{:keys [on-refresh child]}]
-  (widget (widgets/RefreshIndicator .onRefresh on-refresh) child))
-
-(defn sized-box [{:keys [height width]}]
-  (widget (widgets/SizedBox .height (or height 0) .width (or width 0))))
-
-(defn scrollbar [{:keys [child]}]
-  (widget (widgets/Scrollbar) child))
+  (material/ThemeData .brightness (or brightness widgets/Brightness.light) .colorSeed (or color-seed nil) .scaffoldBackgroundColor (or scaffold-background-color nil)))
