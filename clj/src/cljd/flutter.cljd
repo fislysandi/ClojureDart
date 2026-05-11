@@ -1279,7 +1279,7 @@
     :managed [*hud-enabled (atom nil) :dispose nil
               _ (println "[* RDY)_") :dispose nil]
     (widgets/Stack
-      .alignment widgets/Alignment.topLeft
+      .alignment widgets/AlignmentGeometry.topLeft
       .fit widgets/StackFit.expand
       .children
       [(widget
@@ -1627,15 +1627,3 @@
      (try
        (.toImageSync picture# (int ~w) (int ~h))
        (finally (.dispose picture#)))))
-
-
-
-
-
-
-;; Widget factory functions
-(defn material-app [{:keys [title theme home]}]
-  (widget (material/MaterialApp .title (or title "") .theme (or theme nil) .home (or home nil))))
-
-(defn theme-data [{:keys [brightness color-seed scaffold-background-color]}]
-  (material/ThemeData .brightness (or brightness widgets/Brightness.light) .colorSeed (or color-seed nil) .scaffoldBackgroundColor (or scaffold-background-color nil)))
