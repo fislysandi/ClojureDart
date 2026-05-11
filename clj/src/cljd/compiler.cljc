@@ -403,7 +403,7 @@
   "ns may be nil, returns the alias for this lib"
   [lib ns]
   (or (-> @nses :libs (get lib) :dart-alias)
-    (let [[_ trimmed-lib] (if lib (re-matches #"(?:package:)?(.+?)(?:\.dart)?" lib) nil)
+    (let [[_ trimmed-lib] (if lib (if lib (re-matches #"(?:package:)?(.+?)(?:\.dart)?" lib) nil) nil)
           segments (re-seq #"[a-zA-Z][a-zA-Z_0-9]*" trimmed-lib)
           prefix (apply str (map first (butlast segments)))
           base (cond->> (last segments) (not= prefix "") (str prefix "_"))
