@@ -347,7 +347,8 @@ class TopLevelVisitor extends ThrowingElementVisitor<Map<String, dynamic>> {
           e.aliasedType.element as InterfaceElement,
           interfaceTypeAliasDisplayName: e.displayName);
     }
-    return {};// throw "TypeAliasElement type not handled, please contact cljd team @dupuchba or @cgrand";
+    throw "TypeAliasElement type not handled, please contact cljd team @dupuchba or @cgrand";
+    return {};
   }
 
   Map<String, dynamic> visitFunctionElement(FunctionElement e) {
