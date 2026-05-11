@@ -365,7 +365,7 @@ class TopLevelVisitor extends ThrowingElementVisitor<Map<String, dynamic>> {
 
   // void visitExtensionElement(ExtensionElement e) {
   //   print("; extension ${e.displayName}");
-  }
+  // }
 }
 
 late String projectDirectoryPath;
